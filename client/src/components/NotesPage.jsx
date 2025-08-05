@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import NoteList from './NoteList';
-import Leaderboard from './Leaderboard';
 
 const NotesPage = ({ token }) => {
   const [notes, setNotes] = useState([]);
@@ -130,7 +129,6 @@ const NotesPage = ({ token }) => {
           </div>
         </div>
       </form>
-      <Leaderboard />
       <NoteList
         notes={notes.filter(
           (note) =>
