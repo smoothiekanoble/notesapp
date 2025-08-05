@@ -1,79 +1,136 @@
-# Personal Notes Fullstack App
+# Notes App
 
-This is a full-stack personal notes web application built with the following technologies:
+simple fullstack personal notes app to create, pin, search, and manage  thoughts — built with React, Tailwind, Express, and PostgreSQL.
 
-- **Frontend:** React (with Vite) and Tailwind CSS
-- **Backend:** Node.js, Express, and PostgreSQL
+---
+
+## Tech Stack
+
+- **Frontend:** React (Vite) + Tailwind CSS  
+- **Backend:** Node.js + Express  
+- **Database:** PostgreSQL
+
+---
 
 ## Project Structure
 
-- `client/`: Contains the React frontend application.
-- `server/`: Contains the Node.js/Express backend server and API.
+    notesapp/
+    ├── client/      # React frontend
+    ├── server/      # Express backend + PostgreSQL
+    └── README.md
 
-## Prerequisites
+---
 
-- [Node.js](https://nodejs.org/) (v14 or later)
-- [npm](https://www.npmjs.com/)
+## Features
+
+- CRUD notes  
+- Pinning notes show pinned ones at the top  
+- Search notes 
+- fully responsive and styled with Tailwind  
+- dark mode 
+- User authentication + private notes
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (v14 or later)  
+- [npm](https://www.npmjs.com/)  
 - [PostgreSQL](https://www.postgresql.org/)
 
-## Setup and Running the Application
+---
 
-### 1. Backend Setup
+## Backend Setup
 
-1.  **Navigate to the server directory:**
-    ```bash
-    cd server
-    ```
+1. Open terminal and navigate to backend folder:
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+        cd server
 
-3.  **Set up the database:**
-    - Make sure you have PostgreSQL installed and running.
-    - Create a new database. You can use the `psql` command-line tool or a GUI like pgAdmin.
-      ```sql
-      CREATE DATABASE notes_app;
-      ```
-    - Connect to your new database and run the SQL script to create the `notes` table.
-      ```bash
-      psql -U your_postgres_user -d notes_app -f database.sql
-      ```
+2. Install dependencies:
 
-4.  **Configure environment variables:**
-    - Rename the `.env.example` file to `.env`.
-    - Open the `.env` file and update the following values with your PostgreSQL credentials:
-      ```
-      DB_USER=your_db_user
-      DB_PASSWORD=your_db_password
-      DB_HOST=localhost
-      DB_PORT=5432
-      DB_DATABASE=notes_app
-      ```
+        npm install
 
-5.  **Start the backend server:**
-    ```bash
-    npm run dev
-    ```
-    The server will start on `http://localhost:5000`.
+3. Create the database:
 
-### 2. Frontend Setup
+        CREATE DATABASE notes_app;
 
-1.  **Navigate to the client directory in a new terminal:**
-    ```bash
-    cd client
-    ```
+4. Run the schema (this creates the `notes` table):
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+        psql -U your_postgres_user -d notes_app -f database.sql
 
-3.  **Start the frontend development server:**
-    ```bash
-    npm run dev
-    ```
-    The React app will open in your browser at `http://localhost:5173` (or another port if 5173 is busy).
+5. Copy the environment config and fill in your credentials:
 
-The frontend is configured to proxy API requests to the backend server, so you should be able to see your notes, add new ones, and delete them.
+        cp .env.example .env
+
+   Update `.env` with your PostgreSQL settings:
+
+        DB_USER=your_user
+        DB_PASSWORD=your_password
+        DB_HOST=localhost
+        DB_PORT=5432
+        DB_DATABASE=notes_app
+
+6. Start the backend server:
+
+        npm run dev
+
+   It should run at `http://localhost:5000`
+
+---
+
+## Frontend Setup
+
+1. In a separate terminal tab go to the frontend folder
+
+        cd client
+
+2. Install dependencies:
+
+        npm install
+
+3. Start the development server:
+
+        npm run dev
+
+   The app should be available at `http://localhost:5173`
+
+> The frontend is configured to proxy API requests to the backend, so everything should just work out of the box
+
+---
+
+## API Overview
+
+| Method | Route             | Description        |
+|--------|-------------------|--------------------|
+| GET    | `/api/notes`      | Fetch all notes    |
+| POST   | `/api/notes`      | Create a new note  |
+| PUT    | `/api/notes/:id`  | Update a note      |
+| DELETE | `/api/notes/:id`  | Delete a note      |
+
+---
+
+## Roadmap
+
+- [x] Create / delete notes  
+- [x] Pin + sort notes  
+- [x] Search bar  
+- [ ] Edit functionality  
+- [ ] User login + private notes  
+- [ ] Mobile UX polish  
+- [ ] Deploy to Vercel + Render
+
+---
+
+## License
+
+MIT
+
+---
+
+## Contributing
+
+pluh
