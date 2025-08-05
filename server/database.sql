@@ -1,0 +1,9 @@
+CREATE DATABASE notes_app;
+
+CREATE TABLE notes (
+    note_id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    body TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    pinned BOOLEAN DEFAULT FALSE
+);
