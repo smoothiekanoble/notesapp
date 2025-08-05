@@ -12,6 +12,9 @@ const NotesPage = ({ token }) => {
       const response = await fetch('/api/notes', {
         headers: { 'x-auth-token': token },
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       setNotes(data);
     } catch (error) {
@@ -36,6 +39,9 @@ const NotesPage = ({ token }) => {
         },
         body: JSON.stringify({ title: newNoteTitle, body: newNoteBody }),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const newNote = await response.json();
       const newNotes = [newNote, ...notes];
       newNotes.sort((a, b) => {
@@ -73,6 +79,9 @@ const NotesPage = ({ token }) => {
         },
         body: JSON.stringify(updatedData),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const updatedNote = await response.json();
       const newNotes = notes.map((note) =>
         note.note_id === id ? { ...note, ...updatedNote } : note
