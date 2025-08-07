@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-const NoteItem = ({ note, onDelete, onUpdate }) => {
+const NoteItem = ({ data, width }) => {
+  const { note, onDelete, onUpdate } = data;
   const { note_id, title, body, created_at } = note;
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
@@ -29,7 +30,8 @@ const NoteItem = ({ note, onDelete, onUpdate }) => {
 
   return (
     <div
-      className={`bg-white dark:bg-secondary-800 rounded-lg flex flex-col justify-between transition-all duration-300
+      style={{ width }}
+      className={`bg-white dark:bg-secondary-800 rounded-lg flex flex-col justify-between transition-all duration-300 mb-4
       ${
         note.pinned
           ? 'shadow-xl shadow-accent-500/20 dark:shadow-accent-400/20 border border-accent-500/50'

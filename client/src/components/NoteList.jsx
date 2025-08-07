@@ -1,14 +1,17 @@
+import { Masonry } from 'masonic';
 import NoteItem from './NoteItem';
 
 const NoteList = ({ notes, onDelete, onUpdate }) => {
+  const items = notes.map(note => ({ note, onDelete, onUpdate }));
+
   return (
-    <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
-      {notes.map((note) => (
-        <div key={note.note_id} className="break-inside-avoid mb-4">
-          <NoteItem note={note} onDelete={onDelete} onUpdate={onUpdate} />
-        </div>
-      ))}
-    </div>
+    <Masonry
+      items={items}
+      columnGutter={16}
+      columnWidth={300}
+      overscanBy={5}
+      render={NoteItem}
+    />
   );
 };
 
