@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { fetchApi } from '../utils/api';
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -11,11 +12,8 @@ const LoginPage = ({ onLogin }) => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await fetch('/api/leaderboard');
-        if (response.ok) {
-          const data = await response.json();
-          setLeaderboard(data);
-        }
+        const data = await fetchApi('/api/leaderboard');
+        setLeaderboard(data);
       } catch (err) {
         console.error('Failed to fetch leaderboard:', err);
       }
@@ -27,18 +25,12 @@ const LoginPage = ({ onLogin }) => {
     e.preventDefault();
     setError('');
     try {
-      const response = await fetch('/api/auth/login', {
+      const { token } = await fetchApi('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.msg || 'Failed to login');
-      }
-
-      const { token } = await response.json();
       onLogin(token);
       navigate('/');
     } catch (err) {

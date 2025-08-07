@@ -116,3 +116,7 @@ dist
 
 # Vite build output
 dist
+
+# Environment variables
+.env.production
+.env.local

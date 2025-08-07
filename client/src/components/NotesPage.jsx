@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import NoteList from './NoteList';
+import { fetchApi } from '../utils/api';
 
 const NotesPage = ({ token }) => {
   const [notes, setNotes] = useState([]);
@@ -9,13 +10,9 @@ const NotesPage = ({ token }) => {
 
   const fetchNotes = async () => {
     try {
-      const response = await fetch('/api/notes', {
+      const data = await fetchApi('/api/notes', {
         headers: { 'x-auth-token': token },
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
       setNotes(data);
     } catch (error) {
       console.error('Error fetching notes:', error);
@@ -31,7 +28,7 @@ const NotesPage = ({ token }) => {
   const addNote = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/notes', {
+      const newNote = await fetchApi('/api/notes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,10 +36,6 @@ const NotesPage = ({ token }) => {
         },
         body: JSON.stringify({ title: newNoteTitle, body: newNoteBody }),
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const newNote = await response.json();
       const newNotes = [newNote, ...notes];
       newNotes.sort((a, b) => {
         if (a.pinned && !b.pinned) return -1;
@@ -59,7 +52,7 @@ const NotesPage = ({ token }) => {
 
   const deleteNote = async (id) => {
     try {
-      await fetch(`/api/notes/${id}`, {
+      await fetchApi(`/api/notes/${id}`, {
         method: 'DELETE',
         headers: { 'x-auth-token': token },
       });
@@ -71,7 +64,7 @@ const NotesPage = ({ token }) => {
 
   const updateNote = async (id, updatedData) => {
     try {
-      const response = await fetch(`/api/notes/${id}`, {
+      const updatedNote = await fetchApi(`/api/notes/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -79,10 +72,6 @@ const NotesPage = ({ token }) => {
         },
         body: JSON.stringify(updatedData),
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const updatedNote = await response.json();
       const newNotes = notes.map((note) =>
         note.note_id === id ? { ...note, ...updatedNote } : note
       );
