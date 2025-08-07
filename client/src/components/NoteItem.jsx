@@ -70,7 +70,7 @@ const NoteItem = ({ note, onDelete, onUpdate }) => {
           <div className="p-5">
             <h3 className="font-bold text-lg text-secondary-900 dark:text-white mb-1">{title}</h3>
             <p className="text-secondary-600 dark:text-secondary-400 text-sm mb-3">
-              {new Date(created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              {new Date(created_at).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
             </p>
             <p className="text-secondary-800 dark:text-secondary-300 whitespace-pre-wrap leading-relaxed">{body}</p>
           </div>
