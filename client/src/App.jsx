@@ -67,7 +67,7 @@ function App() {
       <div className="font-sans bg-secondary-100 dark:bg-secondary-900 min-h-screen transition-colors duration-300">
         <header className="bg-white/60 dark:bg-secondary-800/60 backdrop-blur-lg sticky top-0 z-10 shadow-sm">
           <div className="max-w-5xl mx-auto py-0 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-secondary-900 dark:text-white">Notes</h1>
+            <h1 className="text-2xl font-bold text-secondary-900 dark:text-white">Pluh Notes</h1>
             <div className="flex items-center space-x-4">
               {user && (
                 <button

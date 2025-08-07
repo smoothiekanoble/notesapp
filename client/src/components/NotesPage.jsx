@@ -86,6 +86,15 @@ const NotesPage = ({ token }) => {
     }
   };
 
+  const filteredNotes = notes.filter(
+    (note) =>
+      note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      note.body.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const pinnedNotes = filteredNotes.filter((note) => note.pinned);
+  const unpinnedNotes = filteredNotes.filter((note) => !note.pinned);
+
   return (
     <>
       <form onSubmit={addNote} className="mb-12">
@@ -118,15 +127,30 @@ const NotesPage = ({ token }) => {
           </div>
         </div>
       </form>
-      <NoteList
-        notes={notes.filter(
-          (note) =>
-            note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            note.body.toLowerCase().includes(searchTerm.toLowerCase())
-        )}
-        onDelete={deleteNote}
-        onUpdate={updateNote}
-      />
+
+      {pinnedNotes.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-xs font-semibold text-secondary-500 dark:text-secondary-400 uppercase tracking-wider mb-3">Pinned</h2>
+          <NoteList
+            notes={pinnedNotes}
+            onDelete={deleteNote}
+            onUpdate={updateNote}
+          />
+        </div>
+      )}
+
+      {unpinnedNotes.length > 0 && (
+        <div>
+          {pinnedNotes.length > 0 && (
+             <h2 className="text-xs font-semibold text-secondary-500 dark:text-secondary-400 uppercase tracking-wider mb-3">Others</h2>
+          )}
+          <NoteList
+            notes={unpinnedNotes}
+            onDelete={deleteNote}
+            onUpdate={updateNote}
+          />
+        </div>
+      )}
     </>
   );
 };
