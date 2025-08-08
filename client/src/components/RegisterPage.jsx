@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { fetchApi } from '../utils/api';
 
 const RegisterPage = ({ onRegister }) => {
   const [email, setEmail] = useState('');
@@ -16,18 +17,18 @@ const RegisterPage = ({ onRegister }) => {
     }
     setError('');
     try {
-      const response = await fetch('/api/auth/register', {
+      const { token } = await fetchApi('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.msg || 'Failed to register');
-      }
+      // if (!response.ok) {
+      //   const errData = await response.json();
+      //   throw new Error(errData.msg || 'Failed to register');
+      // }
 
-      const { token } = await response.json();
+      // const { token } = await response.json();
       onRegister(token);
       navigate('/');
     } catch (err) {

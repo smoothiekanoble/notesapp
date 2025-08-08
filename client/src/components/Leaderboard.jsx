@@ -27,7 +27,7 @@ const Leaderboard = () => {
     <div className="bg-white dark:bg-secondary-800 shadow-lg rounded-lg p-6 mt-8">
       <h2 className="text-xl font-bold text-secondary-900 dark:text-white mb-4">Top Note Takers</h2>
       <ol className="list-decimal list-inside">
-        {leaderboard.map((user, index) => (
+        {leaderboard.slice(0, 5).map((user, index) => (
           <li key={index} className="text-secondary-700 dark:text-secondary-300 py-1">
             {user.email} - {user.note_count} notes
           </li>
